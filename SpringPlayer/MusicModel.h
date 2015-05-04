@@ -16,5 +16,6 @@
 @property (nonatomic,copy) NSString *playTime;
 @property (nonatomic,copy) NSString *sid;
 @property (nonatomic,copy) NSURL *url;
+@property (nonatomic,assign) BOOL isLike;
 
 @end
