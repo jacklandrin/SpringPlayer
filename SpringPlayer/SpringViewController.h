@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SpringViewController : UIViewController
+@interface SpringViewController : UIViewController<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 
 @end
