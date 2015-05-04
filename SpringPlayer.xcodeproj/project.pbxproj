@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		043A88EE1AF6139800F8A60A /* UIImageView+ImageFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 043A88ED1AF6139800F8A60A /* UIImageView+ImageFill.m */; };
 		044DA50A1AF5062F002C3351 /* FloatWordsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 044DA5091AF5062F002C3351 /* FloatWordsView.m */; };
+		045F36DF1AF7AE890046CFC4 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36DE1AF7AE890046CFC4 /* ChannelModel.m */; };
+		045F36E21AF7B9F90046CFC4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E11AF7B9F90046CFC4 /* LoginViewController.m */; };
+		045F36E51AF7BF140046CFC4 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E41AF7BF140046CFC4 /* UserModel.m */; };
+		045F36E81AF7C9C10046CFC4 /* UIButton+SizeFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E71AF7C9C10046CFC4 /* UIButton+SizeFill.m */; };
 		04C1BF901AF4BA4400615E0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF8F1AF4BA4400615E0F /* main.m */; };
 		04C1BF931AF4BA4400615E0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF921AF4BA4400615E0F /* AppDelegate.m */; };
 		04C1BF961AF4BA4400615E0F /* SpringPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF941AF4BA4400615E0F /* SpringPlayer.xcdatamodeld */; };
@@ -37,6 +41,14 @@
 		043A88ED1AF6139800F8A60A /* UIImageView+ImageFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+ImageFill.m"; sourceTree = "<group>"; };
 		044DA5081AF5062F002C3351 /* FloatWordsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatWordsView.h; sourceTree = "<group>"; };
 		044DA5091AF5062F002C3351 /* FloatWordsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatWordsView.m; sourceTree = "<group>"; };
+		045F36DD1AF7AE890046CFC4 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
+		045F36DE1AF7AE890046CFC4 /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
+		045F36E01AF7B9F90046CFC4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		045F36E11AF7B9F90046CFC4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		045F36E31AF7BF140046CFC4 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		045F36E41AF7BF140046CFC4 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		045F36E61AF7C9C10046CFC4 /* UIButton+SizeFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SizeFill.h"; sourceTree = "<group>"; };
+		045F36E71AF7C9C10046CFC4 /* UIButton+SizeFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SizeFill.m"; sourceTree = "<group>"; };
 		04C1BF8A1AF4BA4400615E0F /* SpringPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpringPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C1BF8E1AF4BA4400615E0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04C1BF8F1AF4BA4400615E0F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -86,6 +98,8 @@
 			children = (
 				043A88EC1AF6139800F8A60A /* UIImageView+ImageFill.h */,
 				043A88ED1AF6139800F8A60A /* UIImageView+ImageFill.m */,
+				045F36E61AF7C9C10046CFC4 /* UIButton+SizeFill.h */,
+				045F36E71AF7C9C10046CFC4 /* UIButton+SizeFill.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -161,6 +175,8 @@
 			children = (
 				04C1BF971AF4BA4400615E0F /* SpringViewController.h */,
 				04C1BF981AF4BA4400615E0F /* SpringViewController.m */,
+				045F36E01AF7B9F90046CFC4 /* LoginViewController.h */,
+				045F36E11AF7B9F90046CFC4 /* LoginViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -181,6 +197,10 @@
 			children = (
 				04C1BFC01AF4C4CF00615E0F /* MusicModel.h */,
 				04C1BFC11AF4C4CF00615E0F /* MusicModel.m */,
+				045F36DD1AF7AE890046CFC4 /* ChannelModel.h */,
+				045F36DE1AF7AE890046CFC4 /* ChannelModel.m */,
+				045F36E31AF7BF140046CFC4 /* UserModel.h */,
+				045F36E41AF7BF140046CFC4 /* UserModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -338,13 +358,17 @@
 			files = (
 				04C1BFB91AF4BC1D00615E0F /* Constants.m in Sources */,
 				043A88EE1AF6139800F8A60A /* UIImageView+ImageFill.m in Sources */,
+				045F36E51AF7BF140046CFC4 /* UserModel.m in Sources */,
 				04C1BF931AF4BA4400615E0F /* AppDelegate.m in Sources */,
 				04C1BF901AF4BA4400615E0F /* main.m in Sources */,
 				044DA50A1AF5062F002C3351 /* FloatWordsView.m in Sources */,
 				04C1BFC21AF4C4CF00615E0F /* MusicModel.m in Sources */,
 				04C1BF991AF4BA4400615E0F /* SpringViewController.m in Sources */,
 				04C1BF961AF4BA4400615E0F /* SpringPlayer.xcdatamodeld in Sources */,
+				045F36E81AF7C9C10046CFC4 /* UIButton+SizeFill.m in Sources */,
 				04C1BFBF1AF4BE9500615E0F /* SingleStringView.m in Sources */,
+				045F36E21AF7B9F90046CFC4 /* LoginViewController.m in Sources */,
+				045F36DF1AF7AE890046CFC4 /* ChannelModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

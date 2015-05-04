@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoginViewController.h"
 
-@interface SpringViewController : UIViewController
+@interface SpringViewController : UIViewController<UIScrollViewDelegate,
+                                                    UITableViewDataSource,
+                                                    UITableViewDelegate,
+                                                    LoginViewControllerDelegate>
 
 
 @end

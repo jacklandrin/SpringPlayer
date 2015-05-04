@@ -22,6 +22,7 @@
     self.window.rootViewController = svc;
     [self.window makeKeyAndVisible];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     return YES;
 }
 
