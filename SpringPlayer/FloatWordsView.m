@@ -100,30 +100,32 @@
     int staticNum = 0;
     for (SingleStringView *view in _wordsArray) {
         if (view.isMoving) {
-            CGRect newFrame = view.frame;
-            if (view.labelDirection == 0) {
-                newFrame.origin.y--;
-                if (_moveSeconds / MOVE_INTERVAL > newFrame.size.height + WINDOW_HEIGHT) {
-                    view.isMoving = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CGRect newFrame = view.frame;
+                if (view.labelDirection == 0) {
+                    newFrame.origin.y--;
+                    if (_moveSeconds / MOVE_INTERVAL > newFrame.size.height + WINDOW_HEIGHT) {
+                        view.isMoving = NO;
+                    }
+                } else if (view.labelDirection == 1) {
+                    newFrame.origin.y++;
+                    if (_moveSeconds / MOVE_INTERVAL > newFrame.size.height + WINDOW_HEIGHT) {
+                        view.isMoving = NO;
+                    }
+                } else if (view.labelDirection == 2) {
+                    newFrame.origin.x--;
+                    // NSLog(@"%f",newFrame.origin.x);
+                    if (_moveSeconds / MOVE_INTERVAL > newFrame.size.width + WINDOW_WIDTH) {
+                        view.isMoving = NO;
+                    }
+                } else if (view.labelDirection == 3) {
+                    newFrame.origin.x++;
+                    if (_moveSeconds / MOVE_INTERVAL > newFrame.size.width + WINDOW_WIDTH) {
+                        view.isMoving = NO;
+                    }
                 }
-            } else if (view.labelDirection == 1) {
-                newFrame.origin.y++;
-                if (_moveSeconds / MOVE_INTERVAL > newFrame.size.height + WINDOW_HEIGHT) {
-                    view.isMoving = NO;
-                }
-            } else if (view.labelDirection == 2) {
-                newFrame.origin.x--;
-               // NSLog(@"%f",newFrame.origin.x);
-                if (_moveSeconds / MOVE_INTERVAL > newFrame.size.width + WINDOW_WIDTH) {
-                    view.isMoving = NO;
-                }
-            } else if (view.labelDirection == 3) {
-                newFrame.origin.x++;
-                if (_moveSeconds / MOVE_INTERVAL > newFrame.size.width + WINDOW_WIDTH) {
-                    view.isMoving = NO;
-                }
-            }
-            view.frame = newFrame;
+                view.frame = newFrame;
+            });
         } else {
             staticNum++;
         }
