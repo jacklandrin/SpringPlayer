@@ -16,6 +16,8 @@
 #import "UserModel.h"
 #import "LoginViewController.h"
 #import "UIButton+SizeFill.h"
+#import "CCColorCube.h"
+#import "TrapeziumView.h"
 
 @interface SpringViewController (){
     //BOOL _isPlaying;
@@ -40,9 +42,12 @@
     BOOL _isLogin;
     UserModel *_user;
     NSDictionary *_loginMess;
+    UIView *_yellowView;
+    TrapeziumView *_trapeziumView;
     //NSMutableDictionary *_artistPicParams;
 }
-
+@property (nonatomic,strong) CCColorCube *colorCube;
+@property (nonatomic,strong) UIColor *themeColor;
 @end
 
 @implementation SpringViewController
@@ -64,13 +69,15 @@
     
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT + 64)];
     
-    UIImageView *bottomBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0,WINDOW_HEIGHT - WINDOW_WIDTH * BOTTOM_BACKGROUND_SCALE, WINDOW_WIDTH, WINDOW_WIDTH * BOTTOM_BACKGROUND_SCALE)];
-    [bottomBackground setImage:[UIImage imageNamed:@"bottom_background"]];
-    [_headerView addSubview:bottomBackground];
+//    UIImageView *bottomBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0,WINDOW_HEIGHT - WINDOW_WIDTH * BOTTOM_BACKGROUND_SCALE, WINDOW_WIDTH, WINDOW_WIDTH * BOTTOM_BACKGROUND_SCALE)];
+//    [bottomBackground setImage:[UIImage imageNamed:@"bottom_background"]];
+    _trapeziumView = [[TrapeziumView alloc] initWithFrame:CGRectMake(0,WINDOW_HEIGHT - WINDOW_WIDTH * BOTTOM_BACKGROUND_SCALE, WINDOW_WIDTH, WINDOW_WIDTH * BOTTOM_BACKGROUND_SCALE)];
+    //[_trapeziumView setColor:[self themeColorWithAlpha:0.28]];
+    [_headerView addSubview:_trapeziumView];
     
-    UIView *yellowView = [[UIView alloc] initWithFrame:CGRectMake(0, WINDOW_HEIGHT, WINDOW_WIDTH, 64)];
-    [yellowView setBackgroundColor:UI_COLOR_FROM_RGBA(0xccc437, 0.28)];
-    [_headerView addSubview:yellowView];
+    _yellowView = [[UIView alloc] initWithFrame:CGRectMake(0, WINDOW_HEIGHT, WINDOW_WIDTH, 64)];
+    [_yellowView setBackgroundColor:[self themeColorWithAlpha:0.28]];
+    [_headerView addSubview:_yellowView];
     
     _likeButton = [[UIButton alloc] initWithFrame:CGRectMake(WINDOW_WIDTH / 6 - 22, WINDOW_HEIGHT - 70, 44, 44)];
     [_likeButton setImage:[UIImage imageNamed:@"dislike_button"] forState:UIControlStateNormal];
@@ -90,8 +97,6 @@
     [_headerView addSubview:_nextButton];
     
     
-    
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -102,7 +107,7 @@
     
     
     _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, 64)];
-    [_navigationView setBackgroundColor:UI_COLOR_FROM_RGBA(0xccc437, 0.35)];
+    [_navigationView setBackgroundColor:[self themeColorWithAlpha:0.35]];
     [self.view addSubview:_navigationView];
     [_navigationView setHidden:YES];
     
@@ -153,8 +158,17 @@
     ChannelModel *channel = _channels[indexPath.row];
     [cell.textLabel setText:channel.name];
     [cell.textLabel setTextColor:[UIColor whiteColor]];
-    [cell setBackgroundColor:UI_COLOR_FROM_RGBA(0xccc437, 0.28)];
+    //[cell setBackgroundColor:UI_COLOR_FROM_RGBA(0xccc437, 0.28)];
+    [cell setBackgroundColor:[self themeColorWithAlpha:0.28]];
     return cell;
+}
+
+-(UIColor*)themeColorWithAlpha:(CGFloat)aplha{
+    if (self.themeColor == nil) {
+        return UI_COLOR_FROM_RGBA(0xccc437,aplha);
+    } else {
+        return [self.themeColor colorWithAlphaComponent:aplha];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -241,6 +255,8 @@
 
 -(void)initAllValue{
     _currentIndex = 0;
+    _colorCube = [[CCColorCube alloc] init];
+    [_singerImageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     _songParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"radio_desktop_win",@"app_name", @"100",@"version",@"n",@"type",@"4",@"channel",nil];
     _loginParameters=[NSMutableDictionary dictionaryWithObjectsAndKeys:@"radio_desktop_win",@"app_name",
                      @"100",@"version", nil];
@@ -342,6 +358,13 @@
         NSURL *singlePicUrl = [NSURL URLWithString:urlArray[0]];
         NSLog(@"%@   %@",urlContent,singlePicUrl);
         [_singerImageView setImageWithURL:singlePicUrl placeholderImage:[UIImage imageNamed:@"artist_test"]];
+//        __weak typeof(self) weakSelf = self;
+//        [_singerImageView setImageWithURLRequest:[NSURLRequest requestWithURL:singlePicUrl] placeholderImage:[UIImage imageNamed:@"artist_test"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//            NSArray *extractedColors = [weakSelf.colorCube extractBrightColorsFromImage:image avoidColor:nil count:1];
+//            weakSelf.themeColor = [extractedColors objectAtIndex:0];
+//        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+//            
+//        }];
         [_singerImageView setImageFill];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"pic url request error");
@@ -351,6 +374,13 @@
     [_playButton setSelected:YES];
     [_streamer play];
     [_likeButton setSelected:_music.isLike];
+}
+
+-(void)setThemeColor:(UIColor *)themeColor{
+    _themeColor = themeColor;
+    [_yellowView setBackgroundColor:[self themeColorWithAlpha:0.28]];
+    [_navigationView setBackgroundColor:[self themeColorWithAlpha:0.35]];
+    [_trapeziumView setColor:[self themeColorWithAlpha:0.28]];
 }
 
 -(void)removeObserverForStreamer{
@@ -374,7 +404,6 @@
 
 
 -(void)getLogin:(LoginViewController *)controller{
-    
     NSString *url=@"http://www.douban.com/j/app/login";
     AFHTTPSessionManager *manager=[AFHTTPSessionManager manager];
     [manager POST:url parameters:_loginParameters success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -444,6 +473,12 @@
                        withObject:nil
                     waitUntilDone:NO];
         }
+    } else if ([keyPath isEqualToString:@"image"]) {
+        NSLog(@"%@",change);
+        UIImage *image = change[@"new"];
+        NSArray *extractedColors = [self.colorCube extractBrightColorsFromImage:image avoidColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1] count:1];
+        self.themeColor = [extractedColors objectAtIndex:0];
+        [_tableView reloadData];
     }
 }
 

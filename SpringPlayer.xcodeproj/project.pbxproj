@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		043A88EE1AF6139800F8A60A /* UIImageView+ImageFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 043A88ED1AF6139800F8A60A /* UIImageView+ImageFill.m */; };
 		044DA50A1AF5062F002C3351 /* FloatWordsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 044DA5091AF5062F002C3351 /* FloatWordsView.m */; };
+		0451C4EE1AF9C0D60021BAC1 /* CCColorCube.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451C4EB1AF9C0D60021BAC1 /* CCColorCube.m */; };
+		0451C4EF1AF9C0D60021BAC1 /* CCLocalMaximum.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451C4ED1AF9C0D60021BAC1 /* CCLocalMaximum.m */; };
+		0451C4F21AF9DDD90021BAC1 /* TrapeziumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451C4F11AF9DDD90021BAC1 /* TrapeziumView.m */; };
 		045F36DF1AF7AE890046CFC4 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36DE1AF7AE890046CFC4 /* ChannelModel.m */; };
 		045F36E21AF7B9F90046CFC4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E11AF7B9F90046CFC4 /* LoginViewController.m */; };
 		045F36E51AF7BF140046CFC4 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E41AF7BF140046CFC4 /* UserModel.m */; };
@@ -41,6 +44,12 @@
 		043A88ED1AF6139800F8A60A /* UIImageView+ImageFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+ImageFill.m"; sourceTree = "<group>"; };
 		044DA5081AF5062F002C3351 /* FloatWordsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatWordsView.h; sourceTree = "<group>"; };
 		044DA5091AF5062F002C3351 /* FloatWordsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatWordsView.m; sourceTree = "<group>"; };
+		0451C4EA1AF9C0D60021BAC1 /* CCColorCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCColorCube.h; path = ColorCube/CCColorCube.h; sourceTree = "<group>"; };
+		0451C4EB1AF9C0D60021BAC1 /* CCColorCube.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCColorCube.m; path = ColorCube/CCColorCube.m; sourceTree = "<group>"; };
+		0451C4EC1AF9C0D60021BAC1 /* CCLocalMaximum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCLocalMaximum.h; path = ColorCube/CCLocalMaximum.h; sourceTree = "<group>"; };
+		0451C4ED1AF9C0D60021BAC1 /* CCLocalMaximum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCLocalMaximum.m; path = ColorCube/CCLocalMaximum.m; sourceTree = "<group>"; };
+		0451C4F01AF9DDD90021BAC1 /* TrapeziumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrapeziumView.h; sourceTree = "<group>"; };
+		0451C4F11AF9DDD90021BAC1 /* TrapeziumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrapeziumView.m; sourceTree = "<group>"; };
 		045F36DD1AF7AE890046CFC4 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
 		045F36DE1AF7AE890046CFC4 /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
 		045F36E01AF7B9F90046CFC4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -104,6 +113,17 @@
 			name = Category;
 			sourceTree = "<group>";
 		};
+		0451C4E91AF9C0CA0021BAC1 /* ColorCube */ = {
+			isa = PBXGroup;
+			children = (
+				0451C4EA1AF9C0D60021BAC1 /* CCColorCube.h */,
+				0451C4EB1AF9C0D60021BAC1 /* CCColorCube.m */,
+				0451C4EC1AF9C0D60021BAC1 /* CCLocalMaximum.h */,
+				0451C4ED1AF9C0D60021BAC1 /* CCLocalMaximum.m */,
+			);
+			name = ColorCube;
+			sourceTree = "<group>";
+		};
 		04C1BF811AF4BA4400615E0F = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +147,7 @@
 		04C1BF8C1AF4BA4400615E0F /* SpringPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				0451C4E91AF9C0CA0021BAC1 /* ColorCube */,
 				043A88EF1AF6139E00F8A60A /* Category */,
 				04C1BFBC1AF4BD3400615E0F /* Model */,
 				04C1BFBB1AF4BD2600615E0F /* View */,
@@ -188,6 +209,8 @@
 				04C1BFBE1AF4BE9500615E0F /* SingleStringView.m */,
 				044DA5081AF5062F002C3351 /* FloatWordsView.h */,
 				044DA5091AF5062F002C3351 /* FloatWordsView.m */,
+				0451C4F01AF9DDD90021BAC1 /* TrapeziumView.h */,
+				0451C4F11AF9DDD90021BAC1 /* TrapeziumView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -356,12 +379,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0451C4EF1AF9C0D60021BAC1 /* CCLocalMaximum.m in Sources */,
 				04C1BFB91AF4BC1D00615E0F /* Constants.m in Sources */,
 				043A88EE1AF6139800F8A60A /* UIImageView+ImageFill.m in Sources */,
 				045F36E51AF7BF140046CFC4 /* UserModel.m in Sources */,
 				04C1BF931AF4BA4400615E0F /* AppDelegate.m in Sources */,
 				04C1BF901AF4BA4400615E0F /* main.m in Sources */,
+				0451C4F21AF9DDD90021BAC1 /* TrapeziumView.m in Sources */,
 				044DA50A1AF5062F002C3351 /* FloatWordsView.m in Sources */,
+				0451C4EE1AF9C0D60021BAC1 /* CCColorCube.m in Sources */,
 				04C1BFC21AF4C4CF00615E0F /* MusicModel.m in Sources */,
 				04C1BF991AF4BA4400615E0F /* SpringViewController.m in Sources */,
 				04C1BF961AF4BA4400615E0F /* SpringPlayer.xcdatamodeld in Sources */,
