@@ -112,6 +112,7 @@
 //    [_tableView setBackgroundView:tableViewBackground];
     
     _navigationView = [[FXBlurView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, 64)];
+    [_navigationView setTintColor:UI_COLOR_FROM_RGB(0xccc437)];
     [_navigationView setBlurRadius:10];
     [_navigationView setClipsToBounds:NO];
     //[_navigationView setBackgroundColor:[self themeColorWithAlpha:0.35]];
