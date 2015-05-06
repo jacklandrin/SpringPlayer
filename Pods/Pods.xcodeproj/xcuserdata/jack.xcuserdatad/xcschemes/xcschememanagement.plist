@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SpringPlayer-FXBlurView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SpringPlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>8367C73D69AA9E42F5915435</key>
+		<key>5DD5B9DE79E28BDC78062678</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A23772688D49FF2B85455C79</key>
+		<key>6DB50E76B0DE1A696C497C3A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CAFCE30CAB213E8C6ED38C12</key>
+		<key>6E7525FA40B48864FEC38AFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>80A15A5EE7EB66907CF7E8DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

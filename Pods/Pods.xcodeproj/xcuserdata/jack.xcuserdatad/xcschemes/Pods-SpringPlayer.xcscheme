@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A23772688D49FF2B85455C79"
+               BlueprintIdentifier = "5DD5B9DE79E28BDC78062678"
                BuildableName = "libPods-SpringPlayer.a"
                BlueprintName = "Pods-SpringPlayer"
                ReferencedContainer = "container:Pods.xcodeproj">
