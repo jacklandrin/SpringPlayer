@@ -2,24 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SchemeUserState</key>
-	<dict>
-		<key>Pods-SpringPlayer-AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-SpringPlayer-DOUAudioStreamer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-SpringPlayer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>5DD5B9DE79E28BDC78062678</key>
@@ -38,21 +20,6 @@
 			<true/>
 		</dict>
 		<key>80A15A5EE7EB66907CF7E8DF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8367C73D69AA9E42F5915435</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A23772688D49FF2B85455C79</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CAFCE30CAB213E8C6ED38C12</key>
 		<dict>
 			<key>primary</key>
 			<true/>

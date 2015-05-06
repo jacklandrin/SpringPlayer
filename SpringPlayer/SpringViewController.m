@@ -18,6 +18,7 @@
 #import "UIButton+SizeFill.h"
 #import "CCColorCube.h"
 #import "TrapeziumView.h"
+#import "FXBlurView.h"
 
 @interface SpringViewController (){
     //BOOL _isPlaying;
@@ -34,7 +35,7 @@
     NSInteger _currentIndex;
     UIView *_headerView;
     UITableView *_tableView;
-    UIView *_navigationView;
+    FXBlurView *_navigationView;
     UIButton *_loginButton;
     NSMutableArray *_channels;
     ChannelModel *_channel;
@@ -106,8 +107,14 @@
     [self.view addSubview:_tableView];
     
     
-    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, 64)];
-    [_navigationView setBackgroundColor:[self themeColorWithAlpha:0.35]];
+//    FXBlurView *tableViewBackground = [[FXBlurView alloc] initWithFrame:self.view.frame];
+//    [tableViewBackground setBlurRadius:20];
+//    [_tableView setBackgroundView:tableViewBackground];
+    
+    _navigationView = [[FXBlurView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, 64)];
+    [_navigationView setBlurRadius:10];
+    [_navigationView setClipsToBounds:NO];
+    //[_navigationView setBackgroundColor:[self themeColorWithAlpha:0.35]];
     [self.view addSubview:_navigationView];
     [_navigationView setHidden:YES];
     
@@ -379,7 +386,7 @@
 -(void)setThemeColor:(UIColor *)themeColor{
     _themeColor = themeColor;
     [_yellowView setBackgroundColor:[self themeColorWithAlpha:0.28]];
-    [_navigationView setBackgroundColor:[self themeColorWithAlpha:0.35]];
+    [_navigationView setTintColor:self.themeColor];
     [_trapeziumView setColor:[self themeColorWithAlpha:0.28]];
 }
 

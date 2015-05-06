@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6DB50E76B0DE1A696C497C3A"
-               BuildableName = "libPods-SpringPlayer-AFNetworking.a"
-               BlueprintName = "Pods-SpringPlayer-AFNetworking"
+               BlueprintIdentifier = "80A15A5EE7EB66907CF7E8DF"
+               BuildableName = "libPods-SpringPlayer-FXBlurView.a"
+               BlueprintName = "Pods-SpringPlayer-FXBlurView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
