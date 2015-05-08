@@ -92,6 +92,7 @@
     NSLog(@"location:%f   %f",[locationArray[0] floatValue],[locationArray[2] floatValue]);
     [_wordsMoveTimer invalidate];
     _wordsMoveTimer = [NSTimer scheduledTimerWithTimeInterval:MOVE_INTERVAL target:self selector:@selector(wordsMove:) userInfo:nil repeats:YES];
+     [[NSRunLoop currentRunLoop] addTimer:_wordsMoveTimer forMode:NSRunLoopCommonModes];
     //_progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDuration:) userInfo:nil repeats:YES];
 }
 
@@ -145,6 +146,7 @@
 }
 
 -(void)playNewSong:(MusicModel *)music{
+    _moveSeconds = 0;
     _musicInfo = music;
 //    if (_isStoping) {
 //        dispatch_async(dispatch_get_main_queue(), ^{
