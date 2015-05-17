@@ -56,15 +56,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _singerImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    _singerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-20, -20, self.view.frame.size.width + 40, self.view.frame.size.height + 40)];
     [_singerImageView setImage:[UIImage imageNamed:@"artist_test"]];
+    [self registerEffectForView:_singerImageView depth:20];
     [self.view addSubview:_singerImageView];
     
     UIView *grayView = [[UIView alloc] initWithFrame:self.view.frame];
     [grayView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.2]];
     [self.view addSubview:grayView];
     
-    _floatWordsView = [[FloatWordsView alloc] initWithFrame:self.view.frame];
+    _floatWordsView = [[FloatWordsView alloc] initWithFrame:CGRectMake(-10, -10, self.view.frame.size.width + 20, self.view.frame.size.height + 20)];
+    [self registerEffectForView:_floatWordsView depth:10];
     [self.view addSubview:_floatWordsView];
     
     
@@ -140,6 +142,27 @@
     [_navigationView addSubview:_channelLabel];
     
     [self initAllValue];
+}
+
+
+- (void)registerEffectForView:(UIView *)aView depth:(CGFloat)depth;
+{
+    
+    UIInterpolatingMotionEffect *effectY;
+    effectY = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y"
+                                                              type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+    effectY.maximumRelativeValue = @(depth);
+    effectY.minimumRelativeValue = @(-depth);
+    [aView addMotionEffect:effectY];
+    UIInterpolatingMotionEffect *effectX;
+    effectX = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x"
+                                                              type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    effectX.maximumRelativeValue = @(depth);
+    effectX.minimumRelativeValue = @(-depth);
+    
+    
+    [aView addMotionEffect:effectX];
+    
 }
 
 -(void)presentLoginVC:(UIButton*)button{
