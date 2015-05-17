@@ -386,7 +386,8 @@
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *urlContent = operation.responseString;
         NSArray *urlArray = [urlContent componentsSeparatedByString:@"\r\n"];
-        NSURL *singlePicUrl = [NSURL URLWithString:urlArray[0]];
+        int imageIndex = arc4random()%urlArray.count;
+        NSURL *singlePicUrl = [NSURL URLWithString:urlArray[imageIndex]];
         NSLog(@"%@   %@",urlContent,singlePicUrl);
         [_singerImageView setImageWithURL:singlePicUrl placeholderImage:[UIImage imageNamed:@"artist_test"]];
 //        __weak typeof(self) weakSelf = self;
