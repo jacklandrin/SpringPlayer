@@ -8,6 +8,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "AFNetworkReachabilityManager.h"
 #import "Constants.h"
 
 #endif

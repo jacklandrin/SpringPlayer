@@ -9,7 +9,9 @@
 #import "AppDelegate.h"
 #import "SpringViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate (){
+    NSInteger _networkingStatus;
+}
 
 @end
 
@@ -23,7 +25,30 @@
     [self.window makeKeyAndVisible];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    [self networkingStatus];
     return YES;
+}
+
+-(void)networkingStatus{
+    AFNetworkReachabilityManager *afNetworkReachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    [afNetworkReachabilityManager startMonitoring];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(afNetworkStatusChanged:) name:AFNetworkingReachabilityDidChangeNotification object:nil];
+}
+
+- (void)afNetworkStatusChanged:(NSNotification *)notifi{
+    NSDictionary *dict = notifi.userInfo;
+    NSInteger status = [dict[@"AFNetworkingReachabilityNotificationStatusItem"] integerValue];
+    if (_networkingStatus != status) {
+        _networkingStatus = status;
+        if (status == 0) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的网络已断开" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alertView show];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的网络已恢复" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alertView show];
+        }
+    }
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
