@@ -16,6 +16,8 @@
 		045F36E21AF7B9F90046CFC4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E11AF7B9F90046CFC4 /* LoginViewController.m */; };
 		045F36E51AF7BF140046CFC4 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E41AF7BF140046CFC4 /* UserModel.m */; };
 		045F36E81AF7C9C10046CFC4 /* UIButton+SizeFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E71AF7C9C10046CFC4 /* UIButton+SizeFill.m */; };
+		0461D51E1B1ADB2600754E4C /* FMLrcView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0461D51D1B1ADB2600754E4C /* FMLrcView.m */; };
+		0461D5211B1ADB8200754E4C /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0461D5201B1ADB8200754E4C /* UIView+Additions.m */; };
 		04C1BF901AF4BA4400615E0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF8F1AF4BA4400615E0F /* main.m */; };
 		04C1BF931AF4BA4400615E0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF921AF4BA4400615E0F /* AppDelegate.m */; };
 		04C1BF961AF4BA4400615E0F /* SpringPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF941AF4BA4400615E0F /* SpringPlayer.xcdatamodeld */; };
@@ -58,6 +60,10 @@
 		045F36E41AF7BF140046CFC4 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		045F36E61AF7C9C10046CFC4 /* UIButton+SizeFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SizeFill.h"; sourceTree = "<group>"; };
 		045F36E71AF7C9C10046CFC4 /* UIButton+SizeFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SizeFill.m"; sourceTree = "<group>"; };
+		0461D51C1B1ADB2600754E4C /* FMLrcView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMLrcView.h; sourceTree = "<group>"; };
+		0461D51D1B1ADB2600754E4C /* FMLrcView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMLrcView.m; sourceTree = "<group>"; };
+		0461D51F1B1ADB8200754E4C /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
+		0461D5201B1ADB8200754E4C /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		04C1BF8A1AF4BA4400615E0F /* SpringPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpringPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C1BF8E1AF4BA4400615E0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04C1BF8F1AF4BA4400615E0F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -105,6 +111,8 @@
 		043A88EF1AF6139E00F8A60A /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				0461D51F1B1ADB8200754E4C /* UIView+Additions.h */,
+				0461D5201B1ADB8200754E4C /* UIView+Additions.m */,
 				043A88EC1AF6139800F8A60A /* UIImageView+ImageFill.h */,
 				043A88ED1AF6139800F8A60A /* UIImageView+ImageFill.m */,
 				045F36E61AF7C9C10046CFC4 /* UIButton+SizeFill.h */,
@@ -205,6 +213,8 @@
 		04C1BFBB1AF4BD2600615E0F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0461D51C1B1ADB2600754E4C /* FMLrcView.h */,
+				0461D51D1B1ADB2600754E4C /* FMLrcView.m */,
 				04C1BFBD1AF4BE9500615E0F /* SingleStringView.h */,
 				04C1BFBE1AF4BE9500615E0F /* SingleStringView.m */,
 				044DA5081AF5062F002C3351 /* FloatWordsView.h */,
@@ -391,9 +401,11 @@
 				04C1BFC21AF4C4CF00615E0F /* MusicModel.m in Sources */,
 				04C1BF991AF4BA4400615E0F /* SpringViewController.m in Sources */,
 				04C1BF961AF4BA4400615E0F /* SpringPlayer.xcdatamodeld in Sources */,
+				0461D5211B1ADB8200754E4C /* UIView+Additions.m in Sources */,
 				045F36E81AF7C9C10046CFC4 /* UIButton+SizeFill.m in Sources */,
 				04C1BFBF1AF4BE9500615E0F /* SingleStringView.m in Sources */,
 				045F36E21AF7B9F90046CFC4 /* LoginViewController.m in Sources */,
+				0461D51E1B1ADB2600754E4C /* FMLrcView.m in Sources */,
 				045F36DF1AF7AE890046CFC4 /* ChannelModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

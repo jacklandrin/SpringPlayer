@@ -19,6 +19,7 @@
 #import "CCColorCube.h"
 #import "TrapeziumView.h"
 #import "FXBlurView.h"
+#import "FMLrcView.h"
 
 @interface SpringViewController (){
     //BOOL _isPlaying;
@@ -36,6 +37,7 @@
     UIView *_headerView;
     UITableView *_tableView;
     FXBlurView *_navigationView;
+    FXBlurView *_lyricsBackgroundView;
     UIButton *_loginButton;
     NSMutableArray *_channels;
     ChannelModel *_channel;
@@ -45,6 +47,12 @@
     NSDictionary *_loginMess;
     UIView *_yellowView;
     TrapeziumView *_trapeziumView;
+    UIScrollView *_scrollView;
+    UIScrollView *_lyricsScrollView;
+    FMLrcView *_lyricsView;
+    UILabel *_noLyricLabel;
+    UIView *_grayView;
+    BOOL _islrc;
     //NSMutableDictionary *_artistPicParams;
 }
 @property (nonatomic,strong) CCColorCube *colorCube;
@@ -61,15 +69,38 @@
     [self registerEffectForView:_singerImageView depth:20];
     [self.view addSubview:_singerImageView];
     
-    UIView *grayView = [[UIView alloc] initWithFrame:self.view.frame];
-    [grayView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.2]];
-    [self.view addSubview:grayView];
+    _grayView = [[UIView alloc] initWithFrame:self.view.frame];
+    [_grayView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.2]];
+    [self.view addSubview:_grayView];
     
     _floatWordsView = [[FloatWordsView alloc] initWithFrame:CGRectMake(-10, -10, self.view.frame.size.width + 20, self.view.frame.size.height + 20)];
     [self registerEffectForView:_floatWordsView depth:10];
     [self.view addSubview:_floatWordsView];
     
+    _lyricsBackgroundView = [[FXBlurView alloc] initWithFrame:self.view.bounds];
+    [_lyricsBackgroundView setTintColor:UI_COLOR_FROM_RGB(0xccc437)];
+    [_lyricsBackgroundView setBlurRadius:10];
+    [_lyricsBackgroundView setAlpha:0];
+    [self.view addSubview:_lyricsBackgroundView];
     
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [_scrollView setPagingEnabled:YES];
+    [_scrollView setShowsHorizontalScrollIndicator:NO];
+    [_scrollView setShowsVerticalScrollIndicator:NO];
+    [_scrollView setContentSize:CGSizeMake(2 * WINDOW_WIDTH, WINDOW_HEIGHT)];
+    [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    [self.view addSubview:_scrollView];
+    
+    _lyricsView = [[FMLrcView alloc] initWithFrame:CGRectMake(WINDOW_WIDTH, 0, WINDOW_WIDTH, WINDOW_HEIGHT)];
+    [_scrollView addSubview:_lyricsView];
+    
+    _noLyricLabel = [[UILabel alloc] initWithFrame:CGRectMake(WINDOW_WIDTH, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 40)];
+    [_noLyricLabel setTextColor:[UIColor whiteColor]];
+    [_noLyricLabel setTextAlignment:NSTextAlignmentCenter];
+    [_noLyricLabel setText:@"无歌词"];
+    [_scrollView addSubview:_noLyricLabel];
+    
+    //------------left view-------------
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT + 64)];
     
 //    UIImageView *bottomBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0,WINDOW_HEIGHT - WINDOW_WIDTH * BOTTOM_BACKGROUND_SCALE, WINDOW_WIDTH, WINDOW_WIDTH * BOTTOM_BACKGROUND_SCALE)];
@@ -106,7 +137,7 @@
     _tableView.pagingEnabled = YES;
     [_tableView setBackgroundColor:[UIColor clearColor]];
     _tableView.tableHeaderView = _headerView;
-    [self.view addSubview:_tableView];
+    [_scrollView addSubview:_tableView];
     
     
 //    FXBlurView *tableViewBackground = [[FXBlurView alloc] initWithFrame:self.view.frame];
@@ -140,6 +171,10 @@
     [_channelLabel setTextAlignment:NSTextAlignmentCenter];
     [_channelLabel setFont:[UIFont systemFontOfSize:25]];
     [_navigationView addSubview:_channelLabel];
+    
+    
+    //---------------right view--------------
+    
     
     [self initAllValue];
 }
@@ -316,7 +351,24 @@
     } else {
         [_floatWordsView setTime:[NSString stringWithFormat:@"%02d:%02d",(int)_streamer.currentTime/60,(int)_streamer.currentTime%60]];
     }
+    NSString *timeStr =[self TimeformatFromSeconds:_streamer.currentTime];
+    if (_islrc) {
+        [_lyricsView scrollViewMoveLabelWith:timeStr];
+    }
 }
+
+-(NSString*)TimeformatFromSeconds:(int)seconds
+{
+    int totalm = seconds/(60);
+    int h = totalm/(60);
+    int m = totalm%(60);
+    int s = seconds%(60);
+    if (h==0) {
+        return  [NSString stringWithFormat:@"%02d:%02d", m, s];
+    }
+    return [NSString stringWithFormat:@"%02d:%02d:%02d", h, m, s];
+}
+
 
 -(void)getChannels{
     NSString *url=@"http://douban.fm/j/app/radio/channels";
@@ -359,6 +411,21 @@
             music.url = [NSURL URLWithString:[song objectForKey:@"url"]];
             music.isLike = [[song objectForKey:@"like"] boolValue];
             [_tracks addObject:music];
+            
+            [[AFHTTPSessionManager manager] GET:[self lrcUrl:music.title] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                if ([responseObject[@"code"] intValue] == 0 && [responseObject[@"count"] intValue] > 0) {
+                    NSArray *resultArray = responseObject[@"result"];
+                    NSString *lrcStr = resultArray[0][@"lrc"];
+                    
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(){
+                        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:lrcStr]];
+                        [data writeToFile:[DocumentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.lrc",music.sid]] atomically:YES];
+                        
+                    });
+                }
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                NSLog(@"lrc download error");
+            }];
         }
         int a=0;
         for (MusicModel *temp in _tracks) {
@@ -381,31 +448,42 @@
     [_floatWordsView playNewSong:_music];
     //[_artistPicParams setValue:_music.artist forKey:@"name"];
     NSURL *picUrl = [NSURL URLWithString:[[self picUrl:_music.artist] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:picUrl];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSURLRequest *picRequest = [NSURLRequest requestWithURL:picUrl];
+    AFHTTPRequestOperation *picOperation = [[AFHTTPRequestOperation alloc] initWithRequest:picRequest];
+    [picOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *urlContent = operation.responseString;
         NSArray *urlArray = [urlContent componentsSeparatedByString:@"\r\n"];
         int imageIndex = arc4random()%urlArray.count;
         NSURL *singlePicUrl = [NSURL URLWithString:urlArray[imageIndex]];
         NSLog(@"%@   %@",urlContent,singlePicUrl);
         [_singerImageView setImageWithURL:singlePicUrl placeholderImage:[UIImage imageNamed:@"artist_test"]];
-//        __weak typeof(self) weakSelf = self;
-//        [_singerImageView setImageWithURLRequest:[NSURLRequest requestWithURL:singlePicUrl] placeholderImage:[UIImage imageNamed:@"artist_test"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-//            NSArray *extractedColors = [weakSelf.colorCube extractBrightColorsFromImage:image avoidColor:nil count:1];
-//            weakSelf.themeColor = [extractedColors objectAtIndex:0];
-//        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-//            
-//        }];
         [_singerImageView setImageFill];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"pic url request error");
     }];
+    
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [queue addOperation:operation];
+    [queue addOperation:picOperation];
+    
+    [self performSelector:@selector(loadLyric) withObject:nil afterDelay:1];
+
     [_playButton setSelected:YES];
     [_streamer play];
     [_likeButton setSelected:_music.isLike];
+}
+
+-(void)loadLyric{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSString *lrcStr = [DocumentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.lrc",_music.sid]];
+    [_lyricsView selfClearKeyAndTitle];
+    if ([fileManager fileExistsAtPath:lrcStr]) {
+        [_lyricsView setLrcSourcePath:lrcStr];
+        _islrc = YES;
+        [_noLyricLabel setHidden:YES];
+    } else {
+        _islrc = NO;
+        [_noLyricLabel setHidden:NO];
+    }
 }
 
 -(void)setThemeColor:(UIColor *)themeColor{
@@ -413,6 +491,8 @@
     [_yellowView setBackgroundColor:[self themeColorWithAlpha:0.28]];
     [_navigationView setTintColor:self.themeColor];
     [_trapeziumView setColor:[self themeColorWithAlpha:0.28]];
+    [_lyricsBackgroundView setTintColor:[self themeColorWithAlpha:0.28]];
+    [_lyricsView setHighlightColor:self.themeColor];
 }
 
 -(void)removeObserverForStreamer{
@@ -511,11 +591,20 @@
         NSArray *extractedColors = [self.colorCube extractBrightColorsFromImage:image avoidColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1] count:1];
         self.themeColor = [extractedColors objectAtIndex:0];
         [_tableView reloadData];
+    } else if ([keyPath isEqualToString:@"contentOffset"]) {
+        CGFloat alpha = [change[@"new"] CGPointValue].x / WINDOW_WIDTH;
+        [_lyricsBackgroundView setAlpha:alpha];
+        [_grayView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.2 + alpha * 0.5]];
+        [_trapeziumView setAlpha:1.0 / alpha];
     }
 }
 
 -(NSString*)picUrl:(NSString*)artistName{
     return [NSString stringWithFormat:@"http://artistpicserver.kuwo.cn/pic.web?user=DeviceUniqueId&prod=kwplayer_wp_2.8.9.0&source=kwplayer_wp_2.8.9.0_WinPhoneStore.xap&corp=kuwo&type=big_artist_pic&pictype=url&content=list&name=%@&width=720&height=1280",artistName];
+}
+
+-(NSString*)lrcUrl:(NSString*)songName{
+    return [[NSString stringWithFormat:@"http://geci.me/api/lyric/%@",songName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (void)didReceiveMemoryWarning {

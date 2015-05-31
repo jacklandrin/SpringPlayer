@@ -44,8 +44,8 @@
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的网络已断开" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             [alertView show];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的网络已恢复" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            [alertView show];
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的网络已恢复" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+//            [alertView show];
         }
     }
 

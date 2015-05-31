@@ -32,6 +32,8 @@ green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 #define RGB(A,B,C) [UIColor colorWithRed:A/255.0 green:B/255.0 blue:C/255.0 alpha:1.0]
 
+#define DocumentsPath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+
 #define XDRED            UI_COLOR_FROM_RGB(0xFA595C)
 #define XDLIGHTRED       UI_COLOR_FROM_RGB(0xEF9299)
 #define XDGRAY           UI_COLOR_FROM_RGB(0x666666)
