@@ -18,6 +18,7 @@
 		045F36E81AF7C9C10046CFC4 /* UIButton+SizeFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F36E71AF7C9C10046CFC4 /* UIButton+SizeFill.m */; };
 		0461D51E1B1ADB2600754E4C /* FMLrcView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0461D51D1B1ADB2600754E4C /* FMLrcView.m */; };
 		0461D5211B1ADB8200754E4C /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0461D5201B1ADB8200754E4C /* UIView+Additions.m */; };
+		0461D5241B1AF96700754E4C /* LyricModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0461D5231B1AF96700754E4C /* LyricModel.m */; };
 		04C1BF901AF4BA4400615E0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF8F1AF4BA4400615E0F /* main.m */; };
 		04C1BF931AF4BA4400615E0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF921AF4BA4400615E0F /* AppDelegate.m */; };
 		04C1BF961AF4BA4400615E0F /* SpringPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04C1BF941AF4BA4400615E0F /* SpringPlayer.xcdatamodeld */; };
@@ -64,6 +65,8 @@
 		0461D51D1B1ADB2600754E4C /* FMLrcView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMLrcView.m; sourceTree = "<group>"; };
 		0461D51F1B1ADB8200754E4C /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		0461D5201B1ADB8200754E4C /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
+		0461D5221B1AF96700754E4C /* LyricModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyricModel.h; sourceTree = "<group>"; };
+		0461D5231B1AF96700754E4C /* LyricModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyricModel.m; sourceTree = "<group>"; };
 		04C1BF8A1AF4BA4400615E0F /* SpringPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpringPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C1BF8E1AF4BA4400615E0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04C1BF8F1AF4BA4400615E0F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 				045F36DE1AF7AE890046CFC4 /* ChannelModel.m */,
 				045F36E31AF7BF140046CFC4 /* UserModel.h */,
 				045F36E41AF7BF140046CFC4 /* UserModel.m */,
+				0461D5221B1AF96700754E4C /* LyricModel.h */,
+				0461D5231B1AF96700754E4C /* LyricModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -389,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0461D5241B1AF96700754E4C /* LyricModel.m in Sources */,
 				0451C4EF1AF9C0D60021BAC1 /* CCLocalMaximum.m in Sources */,
 				04C1BFB91AF4BC1D00615E0F /* Constants.m in Sources */,
 				043A88EE1AF6139800F8A60A /* UIImageView+ImageFill.m in Sources */,

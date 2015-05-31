@@ -10,6 +10,13 @@
 
 @implementation MusicModel
 
+-(instancetype)init{
+    if (self = [super init]) {
+        self.lyric = [[LyricModel alloc] init];
+    }
+    return self;
+}
+
 - (NSURL *)audioFileURL{
     return [self url];
 }
