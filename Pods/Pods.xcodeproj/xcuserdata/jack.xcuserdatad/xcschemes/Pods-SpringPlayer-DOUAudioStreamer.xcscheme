@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E7525FA40B48864FEC38AFE"
+               BlueprintIdentifier = "C5326D440F454FC21EB55DCB"
                BuildableName = "libPods-SpringPlayer-DOUAudioStreamer.a"
                BlueprintName = "Pods-SpringPlayer-DOUAudioStreamer"
                ReferencedContainer = "container:Pods.xcodeproj">

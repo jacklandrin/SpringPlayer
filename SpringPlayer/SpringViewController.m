@@ -24,7 +24,7 @@
 @interface SpringViewController (){
     //BOOL _isPlaying;
     FloatWordsView *_floatWordsView;
-    UIImageView *_singerImageView;
+    
     NSMutableDictionary *_songParams;
     NSMutableDictionary *_loginParameters;
     NSMutableArray *_tracks;
@@ -55,6 +55,7 @@
     BOOL _islrc;
     //NSMutableDictionary *_artistPicParams;
 }
+@property (nonatomic,strong) UIImageView *singerImageView;
 @property (nonatomic,strong) CCColorCube *colorCube;
 @property (nonatomic,strong) UIColor *themeColor;
 @end
@@ -91,14 +92,7 @@
     [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self.view addSubview:_scrollView];
     
-    _lyricsView = [[FMLrcView alloc] initWithFrame:CGRectMake(WINDOW_WIDTH, 0, WINDOW_WIDTH, WINDOW_HEIGHT)];
-    [_scrollView addSubview:_lyricsView];
     
-    _noLyricLabel = [[UILabel alloc] initWithFrame:CGRectMake(WINDOW_WIDTH, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 40)];
-    [_noLyricLabel setTextColor:[UIColor whiteColor]];
-    [_noLyricLabel setTextAlignment:NSTextAlignmentCenter];
-    [_noLyricLabel setText:@"无歌词"];
-    [_scrollView addSubview:_noLyricLabel];
     
     //------------left view-------------
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT + 64)];
@@ -135,6 +129,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.pagingEnabled = YES;
+    _tableView.tag = 1;
     [_tableView setBackgroundColor:[UIColor clearColor]];
     _tableView.tableHeaderView = _headerView;
     [_scrollView addSubview:_tableView];
@@ -174,7 +169,19 @@
     
     
     //---------------right view--------------
+    _lyricsView = [[FMLrcView alloc] initWithFrame:CGRectMake(WINDOW_WIDTH, 0, WINDOW_WIDTH, WINDOW_HEIGHT)];
+    [_scrollView addSubview:_lyricsView];
     
+    _noLyricLabel = [[UILabel alloc] initWithFrame:CGRectMake(WINDOW_WIDTH, WINDOW_HEIGHT / 2, WINDOW_WIDTH, 40)];
+    [_noLyricLabel setTextColor:[UIColor whiteColor]];
+    [_noLyricLabel setTextAlignment:NSTextAlignmentCenter];
+    [_noLyricLabel setText:@"无歌词"];
+    [_scrollView addSubview:_noLyricLabel];
+    
+    UIButton *changeLyricButton = [[UIButton alloc] initWithFrame:CGRectMake(2 * WINDOW_WIDTH - 64, WINDOW_HEIGHT - 64, 44, 44)];
+    [changeLyricButton setImage:[UIImage imageNamed:@"change_lyric"] forState:UIControlStateNormal];
+    [changeLyricButton addTarget:self action:@selector(changeLyricAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:changeLyricButton];
     
     [self initAllValue];
 }
@@ -248,23 +255,25 @@
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"  000,%f,%f",scrollView.contentOffset.y,WINDOW_HEIGHT);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (scrollView.contentOffset.y == 0) {
-            [UIView animateWithDuration:0.3 animations:^{
-                _navigationView.alpha = 0.0;
-            } completion:^(BOOL finished) {
-                if (finished) {
-                    [_navigationView setHidden:YES];
-                }
-            }];
-        } else if (scrollView.contentOffset.y == WINDOW_HEIGHT){
-            [_navigationView setHidden:NO];
-            [UIView animateWithDuration:0.3 animations:^{
-                _navigationView.alpha = 1.0;
-            }];
-        }
-    });
+    if (scrollView.tag == 1) {
+        NSLog(@"  000,%f,%f",scrollView.contentOffset.y,WINDOW_HEIGHT);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (scrollView.contentOffset.y == 0) {
+                [UIView animateWithDuration:0.3 animations:^{
+                    _navigationView.alpha = 0.0;
+                } completion:^(BOOL finished) {
+                    if (finished) {
+                        [_navigationView setHidden:YES];
+                    }
+                }];
+            } else if (scrollView.contentOffset.y == WINDOW_HEIGHT){
+                [_navigationView setHidden:NO];
+                [UIView animateWithDuration:0.3 animations:^{
+                    _navigationView.alpha = 1.0;
+                }];
+            }
+        });
+    }
 }
 
 
@@ -314,6 +323,7 @@
     if ([self reGetTracks]) {
         _currentIndex++;
         [_floatWordsView stopSong];
+        [_lyricsView selfClearKeyAndTitle];
         [self loadTracks];
     }
 }
@@ -398,12 +408,13 @@
     NSLog(@"current channel--->%@",[_songParams objectForKey:@"channel"]);
     [manager GET:TRACKS_URL parameters:_songParams success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"track:%@",responseObject);
-        NSDictionary *responseSongs = [responseObject objectForKey:@"song"];
+        NSArray *responseSongs = [responseObject objectForKey:@"song"];
         if (_tracks != nil) {
             [_tracks removeAllObjects];
         }
         _tracks = [NSMutableArray array];
-        for (NSDictionary *song in responseSongs) {
+        for (int i = 0;i < responseSongs.count;i++) {
+            NSDictionary *song = responseSongs[i];
             MusicModel *music = [[MusicModel alloc] init];
             music.artist = [song objectForKey:@"artist"];
             music.title = [song objectForKey:@"title"];
@@ -415,12 +426,21 @@
             [[AFHTTPSessionManager manager] GET:[self lrcUrl:music.title] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 if ([responseObject[@"code"] intValue] == 0 && [responseObject[@"count"] intValue] > 0) {
                     NSArray *resultArray = responseObject[@"result"];
-                    NSString *lrcStr = resultArray[0][@"lrc"];
+                    music.lyric.count = [responseObject[@"count"] integerValue];
+                    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+                    for (int i = 0; i < music.lyric.count; i++) {
+                        [tempArray addObject:resultArray[i][@"lrc"]];
+                    }
+                    music.lyric.lyrics = tempArray;
                     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(){
-                        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:lrcStr]];
+                        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:music.lyric.lyrics[0]]];
                         [data writeToFile:[DocumentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.lrc",music.sid]] atomically:YES];
-                        
+                        if (i == responseSongs.count - 1) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self loadLyric];
+                            });
+                        }
                     });
                 }
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -456,8 +476,11 @@
         int imageIndex = arc4random()%urlArray.count;
         NSURL *singlePicUrl = [NSURL URLWithString:urlArray[imageIndex]];
         NSLog(@"%@   %@",urlContent,singlePicUrl);
-        [_singerImageView setImageWithURL:singlePicUrl placeholderImage:[UIImage imageNamed:@"artist_test"]];
-        [_singerImageView setImageFill];
+        __weak typeof(self) weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.singerImageView setImageWithURL:singlePicUrl placeholderImage:[UIImage imageNamed:@"artist_test"]];
+            [weakSelf.singerImageView setImageFill];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"pic url request error");
     }];
@@ -465,7 +488,11 @@
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     [queue addOperation:picOperation];
     
-    [self performSelector:@selector(loadLyric) withObject:nil afterDelay:1];
+    if (_currentIndex != 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadLyric];
+        });
+    }
 
     [_playButton setSelected:YES];
     [_streamer play];
@@ -483,6 +510,28 @@
     } else {
         _islrc = NO;
         [_noLyricLabel setHidden:NO];
+    }
+}
+
+-(void)changeLyricAction:(UIButton*)button{
+    if (_music.lyric.count > 0) {
+        if (_music.lyric.currentIndex < _music.lyric.count - 1) {
+            _music.lyric.currentIndex++;
+        } else {
+            _music.lyric.currentIndex = 0;
+        }
+        NSLog(@"num:%zd/%zd",_music.lyric.currentIndex,_music.lyric.count);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(){
+            NSLog(@"load lyric:%@",_music.lyric.lyrics[_music.lyric.currentIndex]);
+            NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:_music.lyric.lyrics[_music.lyric.currentIndex]]];
+            [data writeToFile:[DocumentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.lrc",_music.sid]] atomically:YES];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [JDStatusBarNotification showWithStatus:@"歌词更新成功" dismissAfter:1 styleName:JDStatusBarStyleWarning];
+                [self loadLyric];
+            });
+            
+        });
     }
 }
 
@@ -595,7 +644,7 @@
         CGFloat alpha = [change[@"new"] CGPointValue].x / WINDOW_WIDTH;
         [_lyricsBackgroundView setAlpha:alpha];
         [_grayView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.2 + alpha * 0.5]];
-        [_trapeziumView setAlpha:1.0 / alpha];
+        //[_trapeziumView setAlpha:1.0 / alpha];
     }
 }
 

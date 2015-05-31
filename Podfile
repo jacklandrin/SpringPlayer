@@ -6,6 +6,7 @@ target 'SpringPlayer' do
 pod 'AFNetworking','~> 2.5.0'
 pod 'DOUAudioStreamer', '~> 0.2.9'
 pod 'FXBlurView','~>1.6.3'
+pod 'JDStatusBarNotification', '~> 1.5.2'
 
 end
 

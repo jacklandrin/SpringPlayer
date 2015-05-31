@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5DD5B9DE79E28BDC78062678"
+               BlueprintIdentifier = "F874BCAFC1F2BB1EF8674E0A"
                BuildableName = "libPods-SpringPlayer.a"
                BlueprintName = "Pods-SpringPlayer"
                ReferencedContainer = "container:Pods.xcodeproj">

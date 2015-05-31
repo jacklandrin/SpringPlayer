@@ -96,7 +96,7 @@
         NSString * title = [titleArr objectAtIndex:index];
         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 25*index+(_scrollView.size.height/2), _scrollView.size.width, 25)];
         label.text = title;
-        label.textColor = [UIColor whiteColor];
+        label.textColor = [UIColor colorWithWhite:0.9 alpha:1];
         label.font = [UIFont systemFontOfSize:14.0f];
         label.textAlignment = NSTextAlignmentCenter;
         [_scrollView addSubview:label];

@@ -22,15 +22,18 @@ PODS:
     - AFNetworking/NSURLSession
   - DOUAudioStreamer (0.2.9)
   - FXBlurView (1.6.3)
+  - JDStatusBarNotification (1.5.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.0)
   - DOUAudioStreamer (~> 0.2.9)
   - FXBlurView (~> 1.6.3)
+  - JDStatusBarNotification (~> 1.5.2)
 
 SPEC CHECKSUMS:
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
   DOUAudioStreamer: b2144219092952cb1483839691d521aa7762146b
   FXBlurView: c6d23f3d35af2c6282296a2930f61c6e2c788d01
+  JDStatusBarNotification: a36d09ccbb047217572b074a61e7ca10dddc5f0a
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.37.1

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DOUAudioStreamer.h"
+#import "LyricModel.h"
 
 @interface MusicModel : NSObject<DOUAudioFile>
 
@@ -17,5 +18,6 @@
 @property (nonatomic,copy) NSString *sid;
 @property (nonatomic,copy) NSURL *url;
 @property (nonatomic,assign) BOOL isLike;
+@property (nonatomic,strong) LyricModel *lyric;
 
 @end

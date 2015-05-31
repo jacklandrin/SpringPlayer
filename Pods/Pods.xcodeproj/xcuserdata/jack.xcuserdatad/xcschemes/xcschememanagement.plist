@@ -2,24 +2,57 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-SpringPlayer-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SpringPlayer-DOUAudioStreamer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SpringPlayer-FXBlurView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SpringPlayer-JDStatusBarNotification.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SpringPlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5DD5B9DE79E28BDC78062678</key>
+		<key>1BC62FFD8D9A3ACF5F0F58E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6DB50E76B0DE1A696C497C3A</key>
+		<key>806AA8E9ADE1E746AE1B6EA3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6E7525FA40B48864FEC38AFE</key>
+		<key>C5326D440F454FC21EB55DCB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>80A15A5EE7EB66907CF7E8DF</key>
+		<key>C8090995D61BC2C6B99CD6AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F874BCAFC1F2BB1EF8674E0A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
